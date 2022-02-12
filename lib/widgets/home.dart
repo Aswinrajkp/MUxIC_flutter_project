@@ -167,8 +167,6 @@ class _HomeViewState extends State<HomeView> {
                                       ),
                                       IconButton(
                                           onPressed: () {
-                                            // bottomAdding(
-                                            //     songDetails, resultInd);
                                             Get.to(PlaylistAdding(
                                               songDetails: songDetails,
                                               index: resultInd,
@@ -191,13 +189,6 @@ class _HomeViewState extends State<HomeView> {
                                       count: resultInd,
                                       songs: songDetails,
                                     ));
-                                    // Navigator.of(context)
-                                    //     .push(MaterialPageRoute(
-                                    //         builder: (context) => Music(
-                                    //               count: resultInd,
-                                    //               audio: song,
-                                    //               songs: songDetails,
-                                    //             )));
                                     controller.changeState();
                                     print(index);
                                     print(resultInd);
