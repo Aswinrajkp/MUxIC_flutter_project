@@ -1,7 +1,6 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_project/Controller/PlayingScreen_controller.dart';
 import 'package:music_project/Controller/homeScreen_Controller.dart';
 import 'package:music_project/Controller/playlist_Screen_Controller.dart';
 import 'package:music_project/widgets/miniPlayer.dart';
@@ -203,8 +202,6 @@ class _HomeViewState extends State<HomeView> {
           bottomNavigationBar: BottomPlaying(),
         ));
   }
-
-  bool fav = false;
 
   Icon red = Icon(
     Icons.favorite,

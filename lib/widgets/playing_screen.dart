@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:music_project/Controller/PlayingScreen_controller.dart';
 import 'package:music_project/Controller/setting_Screen.dart';
+import 'package:music_project/Controller/switch_controll.dart';
 import 'package:music_project/widgets/playlist_Adding.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
@@ -14,7 +15,7 @@ class Music extends StatefulWidget {
   final List<Audio> audio;
   final List<SongModel>? songs;
 
-  const Music({Key? key, required this.audio, required this.count, this.songs})
+  const Music({Key? key, required this.count,required this.audio, this.songs})
       : super(key: key);
 
   @override
@@ -28,13 +29,13 @@ class _MusicState extends State<Music> {
   final formKey = GlobalKey<FormState>();
 
   PlayingScreenController controller = Get.put(PlayingScreenController());
-  SettingsController swichControll = Get.put(SettingsController());
+  SwitchController swichControll = Get.put(SwitchController());
   @override
   void initState() {
     super.initState();
     player.open(
       Playlist(audios: widget.audio, startIndex: widget.count),
-      showNotification: swichControll.switched,
+      showNotification: swichControll.notify,
       loopMode: LoopMode.playlist,
       autoStart: true,
       notificationSettings: NotificationSettings(
@@ -61,7 +62,7 @@ class _MusicState extends State<Music> {
 
   @override
   Widget build(BuildContext context) {
-    miniPlayAudio = widget.audio;
+    miniPlayAudio = widget.audio!;
     return SafeArea(
       child: Container(
         decoration: BoxDecoration(

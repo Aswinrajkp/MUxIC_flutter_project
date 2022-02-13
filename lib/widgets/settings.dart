@@ -1,19 +1,21 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:music_project/Controller/setting_Screen.dart';
+import 'package:music_project/Controller/switch_controll.dart';
 import 'package:music_project/widgets/home.dart';
 import 'package:music_project/widgets/miniPlayer.dart';
 
 bool notification = true;
 
-class Settings extends GetView<SettingsController> {
+class Settings extends StatelessWidget{
   const Settings({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final data = GetStorage();
-    var controller = Get.put(SettingsController());
+
+    SwitchController controller = Get.put(SwitchController());
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -23,13 +25,16 @@ class Settings extends GetView<SettingsController> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: GetBuilder<SettingsController>(builder: (context)=>
+      body: 
       Column(
         children: [
-          SwitchListTile(value: controller.switched,title: Text('Notification',style: TextStyle(color: Colors.white),), onChanged:(value) {
-                        controller.changeSwitchState(value);
-                        controller.switchState();
-                      } ),
+          GetBuilder<SwitchController>(builder: (context){
+            return
+             SwitchListTile(value: controller.notify,title: Text('Notification',style: TextStyle(color: Colors.white),), onChanged:(value) {
+                        controller.setsSwitch(value);
+                      } );
+          },),
+         
           const ListTile(
             title: Text(
               'privacy policy',
@@ -62,9 +67,8 @@ class Settings extends GetView<SettingsController> {
             ),
           )
         ],
-      ),),
+      ),
+        bottomNavigationBar: BottomPlaying(),);
        
-      bottomNavigationBar: BottomPlaying(),
-    );
-  }
-}
+  }}
+  

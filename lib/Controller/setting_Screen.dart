@@ -23,12 +23,5 @@ class SettingsController extends GetxController {
   }
 
 
-  @override
-  void onInit() async {
-     await GetStorage.init;
-    switchState();
-    print(data.read('switch'));
-    // TODO: implement onInit
-    super.onInit();
-  }
+ 
 }

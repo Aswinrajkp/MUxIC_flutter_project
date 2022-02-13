@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:music_project/Controller/bottomNavigation_Controller.dart';
 import 'package:music_project/widgets/FavoriteListing.dart';
 import 'package:music_project/widgets/home.dart';
@@ -13,7 +14,7 @@ int selectedIndex = 0;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+   await GetStorage.init;
   OnAudioRoom().initRoom();
   runApp(const MyApp());
 }

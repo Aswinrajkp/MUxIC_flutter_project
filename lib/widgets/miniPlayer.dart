@@ -31,10 +31,10 @@ class _BottomPlayingState extends State<BottomPlaying> {
           title: miniTitle(),
           trailing: miniTrailing(),
           onTap: () {
-            print(miniPlayAudio[index2].metas.title);
+            // print(miniPlayAudio[index2].metas.title);
             print(index2);
             Get.to(Music(
-              audio: const [],
+              audio: [],
               count: index2,
               songs: miniPlayList,
             ));
