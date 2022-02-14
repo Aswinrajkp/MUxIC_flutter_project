@@ -1,37 +1,35 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 
-
 class PlaylistAdding extends StatefulWidget {
-
- final List<SongModel> songDetails;
- final int index;
-  const PlaylistAdding({ Key? key ,required this.songDetails,required this.index}) : super(key: key);
+  final List<SongModel> songDetails;
+  final int index;
+  const PlaylistAdding(
+      {Key? key, required this.songDetails, required this.index})
+      : super(key: key);
 
   @override
   State<PlaylistAdding> createState() => _PlaylistAddingState();
 }
 
 class _PlaylistAddingState extends State<PlaylistAdding> {
-
-OnAudioRoom audioRoom = OnAudioRoom();
-final namecontroller = TextEditingController();
+  OnAudioRoom audioRoom = OnAudioRoom();
+  final namecontroller = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(backgroundColor: Colors.black,
-      body: Column(
+      child: Scaffold(
+          backgroundColor: Colors.black,
+          body: Column(
             children: [
               TextButton(
-                  onPressed: () async{
-                   await addingPlaylist(context);
-                   setState(() {
-                     
-                   });
+                  onPressed: () async {
+                    await addingPlaylist(context);
+                    setState(() {});
                   },
                   child: Text("Add Playlist")),
               FutureBuilder<List<PlaylistEntity>>(
@@ -58,8 +56,7 @@ final namecontroller = TextEditingController();
                                   onTap: () async {
                                     audioRoom.addTo(
                                         RoomType.PLAYLIST,
-                                        widget.songDetails[widget.index]
-                                            .getMap
+                                        widget.songDetails[widget.index].getMap
                                             .toSongEntity(),
                                         playlistKey: playlistitems[index].key,
                                         ignoreDuplicate: false);
@@ -67,14 +64,18 @@ final namecontroller = TextEditingController();
                                     bool playlistAdded =
                                         await audioRoom.checkIn(
                                             RoomType.PLAYLIST,
-                                           widget.songDetails[widget.index].id,
+                                            widget.songDetails[widget.index].id,
                                             playlistKey: item.data![index].key);
                                     if (playlistAdded == true) {
-                                      Get.snackbar(widget.songDetails[widget.index].title,
+                                      Get.snackbar(
+                                          widget
+                                              .songDetails[widget.index].title,
                                           "Added to ${playlistitems[index].playlistName} PlaylistS",
                                           backgroundColor: Colors.white);
                                     } else {
-                                      Get.snackbar(widget.songDetails[widget.index].title,
+                                      Get.snackbar(
+                                          widget
+                                              .songDetails[widget.index].title,
                                           "Added to  ${playlistitems[index].playlistName} Playlist",
                                           backgroundColor: Colors.white);
                                     }
@@ -89,8 +90,7 @@ final namecontroller = TextEditingController();
                     );
                   }),
             ],
-          )
-      ),
+          )),
     );
   }
 
@@ -98,56 +98,55 @@ final namecontroller = TextEditingController();
     showDialog(
         context: context,
         builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Add Playlist'),
-              content: Stack(
-                children: <Widget>[
-                  Form(
-                    key: formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            controller: namecontroller,
-                            validator: (value) {
-                              if (value!.isEmpty || value == null) {
-                                return '*required';
-                              }
-                            },
-                          ),
+          return AlertDialog(
+            title: const Text('Add Playlist'),
+            content: Stack(
+              children: <Widget>[
+                Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          controller: namecontroller,
+                          validator: (value) {
+                            if (value!.isEmpty || value == null) {
+                              return '*required';
+                            }
+                          },
                         ),
-                        Row(
-                          children: [
-                            TextButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                child: Text(
-                                  'Cancel',
-                                  style: TextStyle(
-                                      color: Colors.redAccent.shade700),
-                                )),
-                            TextButton(
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                    checking(context);
-                                  }
-                                },
-                                child: Text(
-                                  "Add",
-                                  style: TextStyle(color: Colors.black),
-                                ))
-                          ],
-                        )
-                      ],
-                    ),
+                      ),
+                      Row(
+                        children: [
+                          TextButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: Text(
+                                'Cancel',
+                                style:
+                                    TextStyle(color: Colors.redAccent.shade700),
+                              )),
+                          TextButton(
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  checking(context);
+                                }
+                              },
+                              child: Text(
+                                "Add",
+                                style: TextStyle(color: Colors.black),
+                              ))
+                        ],
+                      )
+                    ],
                   ),
-                ],
-              ),
-            );
-        
+                ),
+              ],
+            ),
+          );
         });
   }
 
@@ -162,5 +161,3 @@ final namecontroller = TextEditingController();
     }
   }
 }
-
-

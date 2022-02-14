@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:music_project/Controller/PlayingScreen_controller.dart';
-import 'package:music_project/Controller/setting_Screen.dart';
 import 'package:music_project/Controller/switch_controll.dart';
 import 'package:music_project/widgets/playlist_Adding.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -15,7 +14,7 @@ class Music extends StatefulWidget {
   final List<Audio> audio;
   final List<SongModel>? songs;
 
-  const Music({Key? key, required this.count,required this.audio, this.songs})
+  const Music({Key? key, required this.count, required this.audio, this.songs})
       : super(key: key);
 
   @override
@@ -33,7 +32,9 @@ class _MusicState extends State<Music> {
   @override
   void initState() {
     super.initState();
-    print(swichControll.notify,);
+    print(
+      swichControll.notify,
+    );
     player.open(
       Playlist(audios: widget.audio, startIndex: widget.count),
       showNotification: swichControll.notify,

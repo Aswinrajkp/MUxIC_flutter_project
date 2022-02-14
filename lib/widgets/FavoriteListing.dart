@@ -41,67 +41,69 @@ class _FavoriteState extends State<Favorite> {
                 style: TextStyle(color: Colors.white),
               ));
             List<FavoritesEntity> favorites = item.data!;
-                return ListView.builder(
-                  itemCount: favorites.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                          leading: QueryArtworkWidget(
-                              id: item.data![index].id,
-                              type: ArtworkType.AUDIO,
-                              nullArtworkWidget: CircleAvatar(
-                                radius: 27,
-                                backgroundImage: AssetImage(
-                                  'assets/image/default.png',
-                                ),
-                              )),
-                          title: Text(
-                            favorites[index].title,
-                            style: TextStyle(color: Colors.white),
-                            maxLines: 2,
-                          ),
-                          trailing: TextButton(
-                            child: Text(
-                              'Remove',
-                              style: TextStyle(color: Colors.white),
+            return ListView.builder(
+              itemCount: favorites.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                      leading: QueryArtworkWidget(
+                          id: item.data![index].id,
+                          type: ArtworkType.AUDIO,
+                          nullArtworkWidget: CircleAvatar(
+                            radius: 27,
+                            backgroundImage: AssetImage(
+                              'assets/image/default.png',
                             ),
-                            onPressed: () async {
-                              Get.defaultDialog(
-                                title: 'Do you want to delete',
-                                middleText: 'Are you sure',
-                                confirm: TextButton(
-                                    onPressed: () async {
-                                      await audioRoom.deleteFrom(
-                                        RoomType.FAVORITES,
-                                        favorites[index].key,
-                                      );
-                                      Get.back();
-                                      setState(() {});
-                                    },
-                                    child: Text('Confirm')),
-                                cancel: TextButton(
-                                    onPressed: () {
-                                      Get.back();
-                                    },
-                                    child: Text('Cancel')),
-                              );
-                            },
-                          ),
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    Music(count: index, audio: fav,songs: [],)));
-                            for (var list in favorites) {
-                              fav.add(Audio.file(list.lastData.toString(),
-                                  metas: Metas(
-                                      title: list.title,
-                                      id: list.id.toString())));
-                            }
-                          }),
-                    );
-                  },
+                          )),
+                      title: Text(
+                        favorites[index].title,
+                        style: TextStyle(color: Colors.white),
+                        maxLines: 2,
+                      ),
+                      trailing: TextButton(
+                        child: Text(
+                          'Remove',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () async {
+                          Get.defaultDialog(
+                            title: 'Do you want to delete',
+                            middleText: 'Are you sure',
+                            confirm: TextButton(
+                                onPressed: () async {
+                                  await audioRoom.deleteFrom(
+                                    RoomType.FAVORITES,
+                                    favorites[index].key,
+                                  );
+                                  Get.back();
+                                  setState(() {});
+                                },
+                                child: Text('Confirm')),
+                            cancel: TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                child: Text('Cancel')),
+                          );
+                        },
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Music(
+                                  count: index,
+                                  audio: fav,
+                                  songs: [],
+                                )));
+                        for (var list in favorites) {
+                          fav.add(Audio.file(list.lastData.toString(),
+                              metas: Metas(
+                                  title: list.title, id: list.id.toString())));
+                        }
+                      }),
                 );
+              },
+            );
           },
         ),
       ),

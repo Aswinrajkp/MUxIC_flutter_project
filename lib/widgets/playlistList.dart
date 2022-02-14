@@ -109,8 +109,11 @@ class _PlaylistListState extends State<PlaylistList> {
                               title: item.title,
                             )));
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                Music(count: index, audio: playableList,songs: miniPlayList,)));
+                            builder: (context) => Music(
+                                  count: index,
+                                  audio: playableList,
+                                  songs: miniPlayList,
+                                )));
                       }
                     },
                   ),

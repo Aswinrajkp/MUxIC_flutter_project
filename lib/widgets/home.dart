@@ -2,6 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_project/Controller/homeScreen_Controller.dart';
+import 'package:music_project/Controller/switch_controll.dart';
 import 'package:music_project/widgets/miniPlayer.dart';
 import 'package:music_project/widgets/playing_screen.dart';
 import 'package:music_project/widgets/playlist_Adding.dart';
@@ -28,11 +29,13 @@ class _HomeViewState extends State<HomeView> {
   AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
   List<SongModel> songs = [];
   List<Audio> song = [];
+  SwitchController switchController = Get.put(SwitchController());
 
   @override
   void initState() {
     super.initState();
     gettingSongs();
+    switchController.switchState();
   }
 
   gettingSongs() async {
@@ -194,7 +197,6 @@ class _HomeViewState extends State<HomeView> {
               },
             )),
           ]),
-          // bottomNavigationBar: BottomPlaying(),
         ));
   }
 
@@ -208,7 +210,6 @@ class _HomeViewState extends State<HomeView> {
     color: Colors.white,
   );
 
-
   searchContainer(context) {
     return GetBuilder<FavoriteController>(
       builder: (controller) {
@@ -216,7 +217,7 @@ class _HomeViewState extends State<HomeView> {
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
-                  'assets/image/head.jpg',
+                  'assets/image/MusicLogoSplash.png',
                 ),
                 fit: BoxFit.fitHeight),
             color: Colors.black,
@@ -227,13 +228,13 @@ class _HomeViewState extends State<HomeView> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * .18,
           child: Padding(
-            padding: EdgeInsets.fromLTRB(13, 25, 13, 0),
+            padding: EdgeInsets.fromLTRB(13, 10, 13, 0),
             child: Column(
               children: [
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.fromLTRB(10, 16, 0, 0),
                       child: Text(
                         'MUxIC',
                         style: TextStyle(
@@ -243,6 +244,9 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.05,
                 ),
                 TextField(
                     style: TextStyle(color: Colors.white),
@@ -258,7 +262,7 @@ class _HomeViewState extends State<HomeView> {
                         borderRadius: BorderRadius.all(Radius.circular(50)),
                         borderSide: BorderSide(color: Colors.white, width: 4),
                       ),
-                      contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       hoverColor: Colors.white,
                       suffixIcon: Icon(Icons.search),
                       hintText: 'Search...',

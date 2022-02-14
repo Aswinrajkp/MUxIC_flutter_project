@@ -15,7 +15,7 @@ int selectedIndex = 0;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   await GetStorage.init;
+  await GetStorage.init;
   OnAudioRoom().initRoom();
   runApp(const MyApp());
 }
@@ -84,7 +84,7 @@ class Home extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             currentIndex: selectedIndex,
             selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white30,
             iconSize: 30,
             onTap: _onItemTapped,
             elevation: 0,

@@ -17,7 +17,6 @@ class _PlaylistState extends State<Playlist> {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       backgroundColor: Colors.black,
       floatingActionButton: addingButton(),
@@ -31,8 +30,7 @@ class _PlaylistState extends State<Playlist> {
           FutureBuilder<List<PlaylistEntity>>(
               future: (onAudioRoom.queryPlaylists()),
               builder: (context, item) {
-                if (item.data == null)
-                  return const CircularProgressIndicator();
+                if (item.data == null) return const CircularProgressIndicator();
                 if (item.data!.isEmpty)
                   return const Center(
                       child: Text(
@@ -49,60 +47,58 @@ class _PlaylistState extends State<Playlist> {
                             crossAxisSpacing: 20),
                     itemCount: playlistitems.length,
                     itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => PlaylistList(
-                                          play: playlistitems[index].key,
-                                          name: playlistitems[index]
-                                              .playlistName,
-                                        )));
-                              },
-                              onLongPress: () {
-                                Get.defaultDialog(
-                                  title: 'Do you want to delete',
-                                  middleText: 'Are you sure',
-                                  confirm: TextButton(
-                                      onPressed: () async {
-                                        onAudioRoom.deletePlaylist(
-                                            playlistitems[index].key);
-                                        Get.back();
-                                        setState(() {});
-                                      },
-                                      child: Text('Confirm')),
-                                  cancel: TextButton(
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                      child: Text('Cancel')),
-                                );
-                              },
-                              child: GestureDetector(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/image/playlist.jpg'),
-                                          fit: BoxFit.cover)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      '${playlistitems[index].playlistName}',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => PlaylistList(
+                                      play: playlistitems[index].key,
+                                      name: playlistitems[index].playlistName,
+                                    )));
+                          },
+                          onLongPress: () {
+                            Get.defaultDialog(
+                              title: 'Do you want to delete',
+                              middleText: 'Are you sure',
+                              confirm: TextButton(
+                                  onPressed: () async {
+                                    onAudioRoom.deletePlaylist(
+                                        playlistitems[index].key);
+                                    Get.back();
+                                    setState(() {});
+                                  },
+                                  child: Text('Confirm')),
+                              cancel: TextButton(
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  child: Text('Cancel')),
+                            );
+                          },
+                          child: GestureDetector(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/image/playlist.jpg'),
+                                      fit: BoxFit.cover)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  '${playlistitems[index].playlistName}',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500),
                                 ),
-                              ));
+                              ),
+                            ),
+                          ));
                     },
                   ),
                 );
               }),
         ],
       ),
-      // bottomNavigationBar: BottomPlaying(),
     );
   }
 

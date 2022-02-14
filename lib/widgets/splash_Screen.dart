@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
           color: Colors.black,
           width: 150,
           height: 150,
-          child: Image.asset('assets/image/default.png')),
+          child: Image.asset('assets/image/MusicLogoSplash.png')),
     );
   }
 }

@@ -26,24 +26,21 @@ class _BottomPlayingState extends State<BottomPlaying> {
           element.id.toString() ==
           realtime.current!.audio.audio.metas.id.toString());
       return Container(
-        child: ListTile(
-          leading: miniLeading(),
-          title: miniTitle(),
-          trailing: miniTrailing(),
-          onTap: () {
-
-            // print(miniPlayAudio[index2].metas.title);
-            print(index2);
-            Get.to(Music(
-              audio: [],
-              count: index2,
-              songs: miniPlayList,
-            ));
-          },
-        ),
-        color: Colors.black,
-        height: 70
-      );
+          child: ListTile(
+            leading: miniLeading(),
+            title: miniTitle(),
+            trailing: miniTrailing(),
+            onTap: () {
+              print(index2);
+              Get.to(Music(
+                audio: [],
+                count: index2,
+                songs: miniPlayList,
+              ));
+            },
+          ),
+          color: Colors.black87,
+          height: 70);
     });
   }
 
@@ -71,7 +68,8 @@ class _BottomPlayingState extends State<BottomPlaying> {
           keepOldArtwork: true,
           id: int.parse(realTimeInfo.current!.audio.audio.metas.id.toString()),
           type: ArtworkType.AUDIO,
-          nullArtworkWidget: Image(image: AssetImage('assets/image/default.png')),
+          nullArtworkWidget:
+              Image(image: AssetImage('assets/image/default.png')),
         ),
       );
     });
