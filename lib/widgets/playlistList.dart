@@ -74,6 +74,7 @@ class _PlaylistListState extends State<PlaylistList> {
                     title: Text(
                       playlist[index].title,
                       style: TextStyle(color: Colors.white),
+                      maxLines: 2,
                     ),
                     trailing: TextButton(
                         onPressed: () async {

@@ -59,6 +59,7 @@ class _FavoriteState extends State<Favorite> {
                           title: Text(
                             favorites[index].title,
                             style: TextStyle(color: Colors.white),
+                            maxLines: 2,
                           ),
                           trailing: TextButton(
                             child: Text(
