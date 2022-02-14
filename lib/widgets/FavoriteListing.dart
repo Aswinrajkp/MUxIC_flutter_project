@@ -1,7 +1,6 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_project/Controller/playlist_Screen_Controller.dart';
 import 'package:music_project/widgets/home.dart';
 import 'package:music_project/widgets/playing_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -20,7 +19,6 @@ class _FavoriteState extends State<Favorite> {
 
   @override
   Widget build(BuildContext context) {
-    PlayListController controller = Get.put(PlayListController());
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -43,8 +41,6 @@ class _FavoriteState extends State<Favorite> {
                 style: TextStyle(color: Colors.white),
               ));
             List<FavoritesEntity> favorites = item.data!;
-            return GetBuilder<PlayListController>(
-              builder: (controller) {
                 return ListView.builder(
                   itemCount: favorites.length,
                   itemBuilder: (context, index) {
@@ -105,8 +101,6 @@ class _FavoriteState extends State<Favorite> {
                     );
                   },
                 );
-              },
-            );
           },
         ),
       ),

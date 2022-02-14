@@ -31,6 +31,7 @@ class _BottomPlayingState extends State<BottomPlaying> {
           title: miniTitle(),
           trailing: miniTrailing(),
           onTap: () {
+
             // print(miniPlayAudio[index2].metas.title);
             print(index2);
             Get.to(Music(
@@ -40,8 +41,8 @@ class _BottomPlayingState extends State<BottomPlaying> {
             ));
           },
         ),
-        color: Colors.transparent,
-        height: 70,
+        color: Colors.black,
+        height: 70
       );
     });
   }

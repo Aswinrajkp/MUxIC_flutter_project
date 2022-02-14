@@ -33,6 +33,7 @@ class _MusicState extends State<Music> {
   @override
   void initState() {
     super.initState();
+    print(swichControll.notify,);
     player.open(
       Playlist(audios: widget.audio, startIndex: widget.count),
       showNotification: swichControll.notify,
@@ -62,7 +63,7 @@ class _MusicState extends State<Music> {
 
   @override
   Widget build(BuildContext context) {
-    miniPlayAudio = widget.audio!;
+    miniPlayAudio = widget.audio;
     return SafeArea(
       child: Container(
         decoration: BoxDecoration(

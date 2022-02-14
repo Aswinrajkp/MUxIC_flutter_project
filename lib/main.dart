@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:music_project/Controller/bottomNavigation_Controller.dart';
 import 'package:music_project/widgets/FavoriteListing.dart';
 import 'package:music_project/widgets/home.dart';
+import 'package:music_project/widgets/miniPlayer.dart';
 import 'package:music_project/widgets/playlist.dart';
 import 'package:music_project/widgets/settings.dart';
 import 'package:music_project/widgets/splash_Screen.dart';
@@ -91,10 +92,11 @@ class Home extends StatelessWidget {
             showSelectedLabels: true,
             selectedIconTheme: IconThemeData(size: 40),
           ),
-          body: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: _widgetOptions.elementAt(selectedIndex),
+          body: Column(
+            children: [
+              Expanded(child: _widgetOptions.elementAt(selectedIndex)),
+              BottomPlaying(),
+            ],
           ),
         );
       },

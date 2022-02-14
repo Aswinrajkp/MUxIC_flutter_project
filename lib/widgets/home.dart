@@ -2,7 +2,6 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_project/Controller/homeScreen_Controller.dart';
-import 'package:music_project/Controller/playlist_Screen_Controller.dart';
 import 'package:music_project/widgets/miniPlayer.dart';
 import 'package:music_project/widgets/playing_screen.dart';
 import 'package:music_project/widgets/playlist_Adding.dart';
@@ -53,7 +52,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     FavoriteController controller = Get.put(FavoriteController());
-    PlayListController playListController = Get.put(PlayListController());
     return Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -65,10 +63,7 @@ class _HomeViewState extends State<HomeView> {
           ],
         )),
         child: Scaffold(
-          extendBodyBehindAppBar: false,
           backgroundColor: Colors.transparent,
-          // appBar: appBar(),
-
           body: Column(children: [
             searchContainer(context),
             Expanded(
@@ -199,7 +194,7 @@ class _HomeViewState extends State<HomeView> {
               },
             )),
           ]),
-          bottomNavigationBar: BottomPlaying(),
+          // bottomNavigationBar: BottomPlaying(),
         ));
   }
 
@@ -213,17 +208,6 @@ class _HomeViewState extends State<HomeView> {
     color: Colors.white,
   );
 
-  appBar() {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      title: const Text(
-        'Music',
-        style: TextStyle(
-            color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
 
   searchContainer(context) {
     return GetBuilder<FavoriteController>(

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_project/Controller/playlist_Screen_Controller.dart';
-import 'package:music_project/widgets/home.dart';
 import 'package:music_project/widgets/miniPlayer.dart';
 import 'package:music_project/widgets/playlistList.dart';
 import 'package:on_audio_room/on_audio_room.dart';
-import 'package:get/get.dart';
 
 class Playlist extends StatefulWidget {
   const Playlist({Key? key}) : super(key: key);
@@ -18,10 +15,9 @@ class _PlaylistState extends State<Playlist> {
   final namecontroller = TextEditingController();
   OnAudioRoom onAudioRoom = OnAudioRoom();
   final formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
-    PlayListController controller = Get.put(PlayListController());
+   
     return Scaffold(
       backgroundColor: Colors.black,
       floatingActionButton: addingButton(),
@@ -53,9 +49,7 @@ class _PlaylistState extends State<Playlist> {
                             crossAxisSpacing: 20),
                     itemCount: playlistitems.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return GetBuilder<PlayListController>(
-                        builder: (controller) {
-                          return InkWell(
+                          return GestureDetector(
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => PlaylistList(
@@ -83,14 +77,14 @@ class _PlaylistState extends State<Playlist> {
                                       child: Text('Cancel')),
                                 );
                               },
-                              child: InkWell(
+                              child: GestureDetector(
                                 child: Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       image: DecorationImage(
                                           image: AssetImage(
                                               'assets/image/playlist.jpg'),
-                                          fit: BoxFit.fill)),
+                                          fit: BoxFit.cover)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
@@ -102,15 +96,13 @@ class _PlaylistState extends State<Playlist> {
                                   ),
                                 ),
                               ));
-                        },
-                      );
                     },
                   ),
                 );
               }),
         ],
       ),
-      bottomNavigationBar: BottomPlaying(),
+      // bottomNavigationBar: BottomPlaying(),
     );
   }
 

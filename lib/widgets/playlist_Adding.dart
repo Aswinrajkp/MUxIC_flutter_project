@@ -1,6 +1,5 @@
  import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_project/Controller/playlist_Screen_Controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 
@@ -99,7 +98,6 @@ final namecontroller = TextEditingController();
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return GetBuilder<PlayListController>(builder: (PlayListController) {
             return AlertDialog(
               title: const Text('Add Playlist'),
               content: Stack(
@@ -149,7 +147,7 @@ final namecontroller = TextEditingController();
                 ],
               ),
             );
-          });
+        
         });
   }
 
