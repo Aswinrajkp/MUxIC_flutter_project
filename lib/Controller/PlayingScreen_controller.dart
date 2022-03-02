@@ -1,9 +1,17 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:get/get.dart';
-import 'package:music_project/widgets/playing_screen.dart';
 
 bool play = true;
 
+
+
 class PlayingScreenController extends GetxController {
+
+bool suffle = false;
+bool repeat = false;
+
+AssetsAudioPlayer player = AssetsAudioPlayer();
+    
   pausing() {
     play = false;
     update();
@@ -22,4 +30,17 @@ class PlayingScreenController extends GetxController {
   updation() {
     update();
   }
+
+  suffleChanging(){
+    suffle = !suffle;
+    update();
+    print(suffle);
+  }
+  repeatChanging(){
+    repeat = !repeat;
+    update();
+    print(repeat);
+  }
+
+
 }

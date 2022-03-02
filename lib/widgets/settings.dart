@@ -52,7 +52,7 @@ class Settings extends StatelessWidget {
                   onTap: () {
                     Get.to(LicensePage(
                       applicationName: 'MUxIC',
-                      applicationVersion: '1.0.0',
+                      applicationVersion: '1.0.2',
                     ));
                   },
                   title: Text(

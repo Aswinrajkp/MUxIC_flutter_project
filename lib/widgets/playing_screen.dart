@@ -7,121 +7,122 @@ import 'package:music_project/widgets/playlist_Adding.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 
-List<Audio> miniPlayAudio = [];
+ List<Audio> miniPlayAudio = [];
+  
+ class Music extends StatelessWidget {
+    Music({Key? key,
+    required this.count, required this.audio, this.songs
+    }) : super(key: key);
 
-class Music extends StatefulWidget {
-  final int count;
+   final int count;
   final List<Audio> audio;
   final List<SongModel>? songs;
-
-  const Music({Key? key, required this.count, required this.audio, this.songs})
-      : super(key: key);
-
-  @override
-  State<Music> createState() => _MusicState();
-}
-
-class _MusicState extends State<Music> {
-  AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
+   PlayingScreenController controller = Get.put(PlayingScreenController());
+   SwitchController switchController = Get.put(SwitchController());
+   AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
   final OnAudioRoom onAudioRoom = OnAudioRoom();
   final namecontroller = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  PlayingScreenController controller = Get.put(PlayingScreenController());
-  SwitchController swichControll = Get.put(SwitchController());
-  @override
-  void initState() {
-    super.initState();
-    print(
-      swichControll.notify,
-    );
-    player.open(
-      Playlist(audios: widget.audio, startIndex: widget.count),
-      showNotification: swichControll.notify,
-      loopMode: LoopMode.playlist,
-      autoStart: true,
-      notificationSettings: NotificationSettings(
-        seekBarEnabled: false,
-        stopEnabled: false,
-        customPlayPauseAction: (player) {
-          if (play == true) {
-            player.pause();
-            controller.pausing();
-          } else {
-            player.play();
-            controller.playing();
-          }
-        },
-        customNextAction: (player) => controller.changeState(),
-        customPrevAction: (player) => controller.changeState(),
-      ),
-    );
-  }
+
 
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
   }
 
-  @override
+  
+
+    @override
   Widget build(BuildContext context) {
-    miniPlayAudio = widget.audio;
-    return SafeArea(
-      child: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.redAccent.shade700,
-            Colors.black,
-          ],
-        )),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: appBar(),
-          body: GetBuilder<PlayingScreenController>(builder: (controller) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Container(
-                      child: Column(
-                    children: [
-                      photo(),
-                      title(),
-                    ],
-                  )),
-                ),
-                GetBuilder<PlayingScreenController>(builder: (controller) {
-                  return Container(
-                    decoration: const BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50),
-                        )),
-                    height: MediaQuery.of(context).size.height * .30,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        slider(),
-                        controll(),
-                        favandlistAdding(),
-                      ],
-                    ),
-                  );
-                })
+    Size size = MediaQuery.of(context).size;
+    PlayingScreenController controller = PlayingScreenController();
+    miniPlayAudio = audio;
+    return GetBuilder<PlayingScreenController>(
+      initState: (state) {
+         player.open(
+      Playlist(audios: audio, startIndex: count),
+      showNotification: switchController.notify,
+      loopMode: LoopMode.playlist,
+      autoStart: true,
+      notificationSettings: NotificationSettings(
+          seekBarEnabled: false,
+          stopEnabled: false,
+          customPlayPauseAction: (player) {
+            if (play == true) {
+              player.pause();
+              controller.pausing();
+            } else {
+              player.play();
+              controller.playing();
+            }
+          },
+          customNextAction: (player) {
+            controller.changeState();
+            player.next();
+          },
+          customPrevAction: (player) {
+            controller.changeState();
+            player.previous();
+          }));
+      },
+      builder: (controller) {
+        return SafeArea(
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.redAccent.shade700,
+                Colors.black,
               ],
-            );
-          }),
-        ),
-      ),
+            )),
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              appBar: appBar(),
+              body:  Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Container(
+                          child: Column(
+                        children: [
+                          photo(size),
+                          title(size),
+                        ],
+                      )),
+                    ),
+                    GetBuilder<PlayingScreenController>(builder: (controller) {
+                      return Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50),
+                            )),
+                         height: MediaQuery.of(context).size.height * .35,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            slider(),
+                            controll(),
+                            favandlistAdding(),
+                          ],
+                        ),
+                      );
+                    })
+                  ],
+              ),
+            ),
+          ),
+        );
+      }
     );
   }
 
   favandlistAdding() {
     return player.builderRealtimePlayingInfos(builder: (context, realtime) {
-      int index2 = widget.songs!.indexWhere((element) =>
+      int index2 = songs!.indexWhere((element) =>
           element.id.toString() ==
           realtime.current!.audio.audio.metas.id.toString());
 
@@ -134,20 +135,21 @@ class _MusicState extends State<Music> {
                 onPressed: () async {
                   bool alreadyAdded = await onAudioRoom.checkIn(
                     RoomType.FAVORITES,
-                    widget.songs![index2].id,
+                    songs![index2].id,
                   );
-                  if (alreadyAdded == true) {
-                    Get.snackbar(widget.songs![index2].title,
-                        "Already added to Favorite",
+                  print(alreadyAdded);
+                  if (alreadyAdded == false) {
+                    Get.snackbar(songs![index2].title,
+                        "Added to Favorite",
                         backgroundColor: Colors.white);
                   } else {
                     Get.snackbar(
-                        widget.songs![index2].title, "Added to Favorite",
+                        songs![index2].title, "Already Added to Favorite",
                         backgroundColor: Colors.white);
                   }
                   onAudioRoom.addTo(
                     RoomType.FAVORITES,
-                    widget.songs![index2].getMap.toFavoritesEntity(),
+                  songs![index2].getMap.toFavoritesEntity(),
                     ignoreDuplicate: false,
                   );
                 },
@@ -157,10 +159,14 @@ class _MusicState extends State<Music> {
                 iconSize: 30,
                 color: Colors.white,
               ),
+              IconButton(onPressed: (){
+                controller.suffleChanging();
+                player.toggleShuffle();
+              }, icon: controller.suffle?Icon(Icons.shuffle_on_rounded,):Icon(Icons.shuffle_rounded),iconSize: 30,color: Colors.white,),
               IconButton(
                 onPressed: () {
                   Get.to(PlaylistAdding(
-                      songDetails: widget.songs!, index: index2));
+                      songDetails: songs!, index: index2));
                 },
                 icon: Icon(Icons.playlist_add),
                 iconSize: 30,
@@ -222,12 +228,12 @@ class _MusicState extends State<Music> {
     );
   }
 
-  photo() {
+  photo(size) {
     return player.builderRealtimePlayingInfos(
         builder: (BuildContext context, RealtimePlayingInfos realTimeInfo) {
       return Container(
-        height: MediaQuery.of(context).size.height * 0.45,
-        width: MediaQuery.of(context).size.width * 0.9,
+        height:size.height * 0.45,
+        width: size.width * 0.9,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(1000),
           child: QueryArtworkWidget(
@@ -255,16 +261,22 @@ class _MusicState extends State<Music> {
             Get.back();
           },
           icon: Icon(Icons.arrow_back_ios_new)),
+          actions: [
+            IconButton(onPressed: (){
+              controller.repeatChanging();
+                player.toggleLoop();
+            }, icon: controller.repeat?Icon(Icons.repeat_on_rounded,size: 30,):Icon(Icons.repeat_rounded,size: 30,))
+          ],
     );
   }
 
-  title() {
+  title(size) {
     return player.builderRealtimePlayingInfos(builder: (context, realtime) {
       return Column(
         children: [
           SizedBox(
-            height: 50,
-          ),
+            height: 50
+             ),
           Padding(
             padding: const EdgeInsets.only(right: 20, left: 25),
             child: Center(
@@ -274,7 +286,8 @@ class _MusicState extends State<Music> {
                     color: Colors.white,
                     fontSize: 25,
                     fontWeight: FontWeight.w900,
-                    fontStyle: FontStyle.italic),
+                    fontStyle: FontStyle.italic,
+                    fontFamily: 'patrickHand'),
                 maxLines: 1,
                 overflow: TextOverflow.clip,
               ),
@@ -284,6 +297,7 @@ class _MusicState extends State<Music> {
       );
     });
   }
+
 
   slider() {
     return player.builderRealtimePlayingInfos(
@@ -339,4 +353,4 @@ class _MusicState extends State<Music> {
     Duration pos = Duration(seconds: sec.toInt());
     player.seek(pos);
   }
-}
+ }

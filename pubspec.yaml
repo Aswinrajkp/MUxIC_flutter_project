@@ -15,7 +15,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.1+4
 
 environment:
   sdk: ">=2.15.1 <3.0.0"
@@ -33,20 +33,19 @@ dependencies:
     sdk: flutter
   get: ^4.6.1
   get_storage: ^2.0.3
-  hive: ^2.0.5
-  hive_flutter: ^1.1.0
+  google_fonts: ^2.1.1
+  infinite_scroll_pagination: ^3.1.0
   on_audio_query: ^2.5.3+1
   on_audio_room: ^2.2.1+1
 
 dev_dependencies:
   build_runner: ^2.1.7
+
+  flutter_launcher_icons: "^0.9.2"
   flutter_lints: ^1.0.0
   flutter_native_splash: ^1.3.3
   flutter_test:
     sdk: flutter
-  hive_generator: ^1.1.2
-
-  flutter_launcher_icons: "^0.9.2"
 
 flutter_icons:
   android: true
@@ -70,8 +69,6 @@ flutter:
     - assets/image/playlist.jpg
     - assets/image/default.png
     - assets/image/MusicLogoSplash.png
-
-   
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
@@ -81,10 +78,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: patrickHand
+      fonts:
+        - asset: assets/fonts/PatrickHand-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

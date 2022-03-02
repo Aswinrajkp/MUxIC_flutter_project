@@ -6,18 +6,10 @@ import 'package:music_project/widgets/home.dart';
 import 'package:music_project/widgets/playing_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class BottomPlaying extends StatefulWidget {
-  const BottomPlaying({Key? key}) : super(key: key);
+class BottomPlaying extends StatelessWidget {
+  BottomPlaying({Key? key}) : super(key: key);
 
-  static PlayingScreenController controller =
-      Get.put(PlayingScreenController());
-
-  @override
-  State<BottomPlaying> createState() => _BottomPlayingState();
-}
-
-class _BottomPlayingState extends State<BottomPlaying> {
-  AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
+AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +31,7 @@ class _BottomPlayingState extends State<BottomPlaying> {
               ));
             },
           ),
-          color: Colors.black87,
+          color: Colors.black,
           height: 70);
     });
   }
@@ -51,7 +43,7 @@ class _BottomPlayingState extends State<BottomPlaying> {
         child: Text(
           realtime.current!.audio.audio.metas.title.toString(),
           style: TextStyle(
-              color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
+              color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700,),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),

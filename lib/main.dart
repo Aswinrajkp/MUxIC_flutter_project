@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(fontFamily: 'patrickHand'),
       initialRoute: "/SplashScreen",
       getPages: [
         GetPage(name: "/SplashScreen", page: () => SplashScreen()),
@@ -39,13 +40,13 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Home page
+// Bottom Nav bar
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
   BottomController controller = Get.put(BottomController());
-  static const List<Widget> _widgetOptions = <Widget>[
+  static  List<Widget> _widgetOptions = <Widget>[
     HomeView(),
     Playlist(),
     Settings(),
