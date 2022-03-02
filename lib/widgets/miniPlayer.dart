@@ -9,7 +9,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 class BottomPlaying extends StatelessWidget {
   BottomPlaying({Key? key}) : super(key: key);
 
-AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
+  AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,10 @@ AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
         child: Text(
           realtime.current!.audio.audio.metas.title.toString(),
           style: TextStyle(
-              color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700,),
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+          ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -75,16 +78,16 @@ AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
           children: [
             IconButton(
               onPressed: () {
-                if (play == true) {
+                if (play == false) {
                   player.pause();
-                  controller.pausing();
+                  controller.playing();
                 } else {
                   player.play();
-                  controller.playing();
+                  controller.pausing();
                 }
               },
               icon: Icon(
-                play == false
+                play == true
                     ? Icons.play_circle_filled_rounded
                     : Icons.pause_circle_filled_rounded,
                 size: 35,

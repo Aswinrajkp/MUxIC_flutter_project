@@ -21,58 +21,57 @@ class Settings extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: GetBuilder<SwitchController>(
-        builder: (controller) {
-            return Column(
-              children: [
-                SwitchListTile(
-                    value: controller.notify,
-                    title: Text(
-                      'Notification',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onChanged: (value) {
-                      controller.setsSwitch(value);
-                      controller.switchState();
-                    }),
-                ListTile(
-                  title: Text(
-                    'privacy policy',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onTap: () {},
+      body: GetBuilder<SwitchController>(builder: (controller) {
+        return Column(
+          children: [
+            SwitchListTile(
+                value: controller.notify,
+                title: Text(
+                  'Notification',
+                  style: TextStyle(color: Colors.white),
                 ),
-                const ListTile(
-                  title: Text(
-                    'Terms and Conditions',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                ListTile(
-                  onTap: () {
-                    Get.to(LicensePage(
-                      applicationName: 'MUxIC',
-                      applicationVersion: '1.0.2',
-                    ));
-                  },
-                  title: Text(
-                    'About',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                const ListTile(
-                  title: Text(
-                    'Version',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  trailing: Text(
-                    '1.0.0',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )
-              ],
-            );
-          }),
+                onChanged: (value) {
+                  controller.setsSwitch(value);
+                  controller.switchState();
+                }),
+            ListTile(
+              title: Text(
+                'privacy policy',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {},
+            ),
+            const ListTile(
+              title: Text(
+                'Terms and Conditions',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                Get.to(LicensePage(
+                  applicationName: 'MUxIC',
+                  applicationVersion: '1.0.2',
+                ));
+              },
+              title: Text(
+                'About',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            const ListTile(
+              title: Text(
+                'Version',
+                style: TextStyle(color: Colors.white),
+              ),
+              trailing: Text(
+                '1.0.0',
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+          ],
+        );
+      }),
     );
   }
 }

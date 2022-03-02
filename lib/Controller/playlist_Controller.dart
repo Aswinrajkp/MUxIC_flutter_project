@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_project/Controller/PlayingScreen_controller.dart';
 import 'package:on_audio_room/on_audio_room.dart';
@@ -15,9 +16,8 @@ class PlaylistController extends GetxController {
       return;
     } else {
       audioRoom.createPlaylist(name);
-      
-      Get.back();
       update();
+      Get.back();
     }
   }
 
@@ -28,7 +28,7 @@ class PlaylistController extends GetxController {
   }
 
   changeState() {
-    play = true;
+    play = false;
     update();
   }
 }

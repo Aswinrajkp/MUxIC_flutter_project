@@ -7,20 +7,18 @@ import 'package:music_project/widgets/playing_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 
-
-  class PlaylistList extends StatelessWidget {
-     PlaylistList({Key? key,
-     required this.play, required this.name
-     }) : super(key: key);
-     final play;
+class PlaylistList extends StatelessWidget {
+  PlaylistList({Key? key, required this.play, required this.name})
+      : super(key: key);
+  final play;
   final name;
 
-      OnAudioRoom audioRoom = OnAudioRoom();
+  OnAudioRoom audioRoom = OnAudioRoom();
   OnAudioQuery audioQuery = OnAudioQuery();
   List<Audio> playableList = [];
   List<SongModel> song = [];
-  
-    @override
+
+  @override
   Widget build(BuildContext context) {
     PlaylistListController controller = Get.put(PlaylistListController());
     return SafeArea(
@@ -83,15 +81,21 @@ import 'package:on_audio_room/on_audio_room.dart';
                               middleText: 'Are you sure',
                               confirm: TextButton(
                                   onPressed: () {
-                                    controller.delete(audioRoom,
-                                        playlist[index].id,play);
+                                    controller.delete(
+                                        audioRoom, playlist[index].id, play);
                                   },
-                                  child: Text('Confirm',style: TextStyle(color: Colors.green),)),
+                                  child: Text(
+                                    'Confirm',
+                                    style: TextStyle(color: Colors.green),
+                                  )),
                               cancel: TextButton(
                                   onPressed: () {
                                     Get.back();
                                   },
-                                  child: Text('Cancel',style: TextStyle(color: Colors.red),)),
+                                  child: Text(
+                                    'Cancel',
+                                    style: TextStyle(color: Colors.red),
+                                  )),
                             );
                           },
                           child: Text(
@@ -99,17 +103,18 @@ import 'package:on_audio_room/on_audio_room.dart';
                             style: TextStyle(color: Colors.white),
                           )),
                       onTap: () {
+                        controller.changeState();
                         for (var item in playlist) {
                           playableList.add(Audio.file(item.lastData,
                               metas: Metas(
                                 id: item.id.toString(),
                                 title: item.title,
                               )));
-                              Get.to(Music(
-                                    count: index,
-                                    audio: playableList,
-                                    songs: miniPlayList,
-                                  ));
+                          Get.to(Music(
+                            count: index,
+                            audio: playableList,
+                            songs: miniPlayList,
+                          ));
                         }
                       },
                     ),
@@ -148,7 +153,8 @@ import 'package:on_audio_room/on_audio_room.dart';
                     ),
                   );
 
-                return GetBuilder<PlaylistListController>(builder: (controller) {
+                return GetBuilder<PlaylistListController>(
+                    builder: (controller) {
                   return ListView.builder(
                     itemCount: item.data!.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -168,15 +174,12 @@ import 'package:on_audio_room/on_audio_room.dart';
                             item.data![index].title,
                             style: TextStyle(color: Colors.white, fontSize: 25),
                           ),
-                          trailing: IconButton(
-                              onPressed: () => controller.adding(
-                                  audioRoom,
-                                  songs[index].getMap.toSongEntity(),
-                                  playlistkey,
-                                  play,
-                                  songs[index]),
-                              icon: Icon(Icons.playlist_add,
-                                  color: Colors.white)),
+                          onTap: () => controller.adding(
+                              audioRoom,
+                              songs[index].getMap.toSongEntity(),
+                              playlistkey,
+                              play,
+                              songs[index]),
                         ),
                       );
                     },
@@ -185,4 +188,4 @@ import 'package:on_audio_room/on_audio_room.dart';
               });
         }));
   }
-  }
+}

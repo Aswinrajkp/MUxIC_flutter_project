@@ -5,21 +5,20 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 
 class PlaylistAdding extends StatelessWidget {
-  PlaylistAdding({Key? key, required this.songDetails, required this.index})
+  PlaylistAdding({Key? key, required this.songDetails, required this.index1})
       : super(key: key);
 
   final List<SongModel> songDetails;
-  final int index;
+  final int index1;
 
   OnAudioRoom audioRoom = OnAudioRoom();
   final namecontroller = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool playlistAdded = false;
- 
 
   @override
   Widget build(BuildContext context) {
-     PlaylistAddingController controller = Get.put(PlaylistAddingController());
+    PlaylistAddingController controller = Get.put(PlaylistAddingController());
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.black,
@@ -65,14 +64,17 @@ class PlaylistAdding extends StatelessWidget {
                                 style: TextStyle(color: Colors.green),
                               )));
                     },
-                    child: Text("Add Playlist")),
+                    child: Text(
+                      "Add Playlist",
+                      style: TextStyle(color: Colors.green, fontSize: 20),
+                    )),
                 FutureBuilder<List<PlaylistEntity>>(
                     future: (audioRoom.queryPlaylists()),
                     builder: (context, item) {
                       if (item.data == null)
                         return const CircularProgressIndicator();
                       if (item.data!.isEmpty)
-                        return const Center(
+                        return Center(
                             child: Text(
                           "No Playlist found!",
                           style: TextStyle(color: Colors.white),
@@ -90,7 +92,7 @@ class PlaylistAdding extends StatelessWidget {
                                     onTap: () async {
                                       audioRoom.addTo(
                                           RoomType.PLAYLIST,
-                                          songDetails[index]
+                                          songDetails[index1]
                                               .getMap
                                               .toSongEntity(),
                                           playlistKey: playlistitems[index].key,
@@ -98,15 +100,15 @@ class PlaylistAdding extends StatelessWidget {
                                       Get.back();
                                       playlistAdded = await audioRoom.checkIn(
                                           RoomType.PLAYLIST,
-                                          songDetails[index].id,
+                                          songDetails[index1].id,
                                           playlistKey: item.data![index].key);
                                       if (playlistAdded == false) {
-                                        Get.snackbar(songDetails[index].title,
+                                        Get.snackbar(songDetails[index1].title,
                                             "  Added to ${playlistitems[index].playlistName} Playlist",
                                             backgroundColor: Colors.white);
                                       } else if (playlistAdded == true) {
-                                        Get.snackbar(songDetails[index].title,
-                                            "AAdded to  ${playlistitems[index].playlistName} Playlist",
+                                        Get.snackbar(songDetails[index1].title,
+                                            "Added to  ${playlistitems[index].playlistName} Playlist",
                                             backgroundColor: Colors.white);
                                       }
                                     },

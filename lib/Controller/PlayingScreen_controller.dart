@@ -3,15 +3,12 @@ import 'package:get/get.dart';
 
 bool play = true;
 
-
-
 class PlayingScreenController extends GetxController {
+  bool suffle = false;
+  bool repeat = false;
 
-bool suffle = false;
-bool repeat = false;
+  AssetsAudioPlayer player = AssetsAudioPlayer();
 
-AssetsAudioPlayer player = AssetsAudioPlayer();
-    
   pausing() {
     play = false;
     update();
@@ -23,7 +20,7 @@ AssetsAudioPlayer player = AssetsAudioPlayer();
   }
 
   changeState() {
-    play = true;
+    play = false;
     update();
   }
 
@@ -31,16 +28,13 @@ AssetsAudioPlayer player = AssetsAudioPlayer();
     update();
   }
 
-  suffleChanging(){
+  suffleChanging() {
     suffle = !suffle;
     update();
-    print(suffle);
   }
-  repeatChanging(){
+
+  repeatChanging() {
     repeat = !repeat;
     update();
-    print(repeat);
   }
-
-
 }

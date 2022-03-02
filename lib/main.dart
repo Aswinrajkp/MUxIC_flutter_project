@@ -46,7 +46,7 @@ class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
   BottomController controller = Get.put(BottomController());
-  static  List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     HomeView(),
     Playlist(),
     Settings(),

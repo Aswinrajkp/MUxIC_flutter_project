@@ -5,9 +5,9 @@ class SwitchController extends GetxController {
   final data = GetStorage();
   bool notify = true;
 
-  setsSwitch(bool value) async{
+  setsSwitch(bool value) async {
     notify = value;
-   await data.write('switch', notify);
+    await data.write('switch', notify);
     update();
   }
 

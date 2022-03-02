@@ -7,117 +7,111 @@ import 'package:music_project/widgets/playlist_Adding.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 
- List<Audio> miniPlayAudio = [];
-  
- class Music extends StatelessWidget {
-    Music({Key? key,
-    required this.count, required this.audio, this.songs
-    }) : super(key: key);
+List<Audio> miniPlayAudio = [];
 
-   final int count;
+class Music extends StatelessWidget {
+  Music({Key? key, required this.count, required this.audio, this.songs})
+      : super(key: key);
+
+  final int count;
   final List<Audio> audio;
   final List<SongModel>? songs;
-   PlayingScreenController controller = Get.put(PlayingScreenController());
-   SwitchController switchController = Get.put(SwitchController());
-   AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
+  PlayingScreenController controller = Get.put(PlayingScreenController());
+  SwitchController switchController = Get.put(SwitchController());
+  AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
   final OnAudioRoom onAudioRoom = OnAudioRoom();
   final namecontroller = TextEditingController();
   final formKey = GlobalKey<FormState>();
-
-
 
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
   }
 
-  
-
-    @override
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     PlayingScreenController controller = PlayingScreenController();
     miniPlayAudio = audio;
-    return GetBuilder<PlayingScreenController>(
-      initState: (state) {
-         player.open(
-      Playlist(audios: audio, startIndex: count),
-      showNotification: switchController.notify,
-      loopMode: LoopMode.playlist,
-      autoStart: true,
-      notificationSettings: NotificationSettings(
-          seekBarEnabled: false,
-          stopEnabled: false,
-          customPlayPauseAction: (player) {
-            if (play == true) {
-              player.pause();
-              controller.pausing();
-            } else {
-              player.play();
-              controller.playing();
-            }
-          },
-          customNextAction: (player) {
-            controller.changeState();
-            player.next();
-          },
-          customPrevAction: (player) {
-            controller.changeState();
-            player.previous();
-          }));
-      },
-      builder: (controller) {
-        return SafeArea(
-          child: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.redAccent.shade700,
-                Colors.black,
-              ],
-            )),
-            child: Scaffold(
-              backgroundColor: Colors.transparent,
-              appBar: appBar(),
-              body:  Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Container(
-                          child: Column(
-                        children: [
-                          photo(size),
-                          title(size),
-                        ],
-                      )),
+    return GetBuilder<PlayingScreenController>(initState: (state) {
+      player.open(Playlist(audios: audio, startIndex: count),
+          showNotification: switchController.notify,
+          loopMode: LoopMode.playlist,
+          autoStart: true,
+          notificationSettings: NotificationSettings(
+              seekBarEnabled: false,
+              stopEnabled: false,
+              customPlayPauseAction: (player) {
+                print('Entered');
+                if (play == false) {
+                  player.pause();
+                  print(play);
+                  controller.playing();
+                } else {
+                  player.play();
+                  print(play);
+                  controller.pausing();
+                }
+              },
+              customNextAction: (player) {
+                controller.changeState();
+                player.next();
+              },
+              customPrevAction: (player) {
+                controller.changeState();
+                player.previous();
+              }));
+    }, builder: (controller) {
+      return SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.redAccent.shade700,
+              Colors.black,
+            ],
+          )),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: appBar(),
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Container(
+                      child: Column(
+                    children: [
+                      photo(size),
+                      title(size),
+                    ],
+                  )),
+                ),
+                GetBuilder<PlayingScreenController>(builder: (controller) {
+                  return Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50),
+                        )),
+                    height: MediaQuery.of(context).size.height * .35,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        slider(),
+                        controll(),
+                        favandlistAdding(),
+                      ],
                     ),
-                    GetBuilder<PlayingScreenController>(builder: (controller) {
-                      return Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(50),
-                              topRight: Radius.circular(50),
-                            )),
-                         height: MediaQuery.of(context).size.height * .35,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            slider(),
-                            controll(),
-                            favandlistAdding(),
-                          ],
-                        ),
-                      );
-                    })
-                  ],
-              ),
+                  );
+                })
+              ],
             ),
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 
   favandlistAdding() {
@@ -139,8 +133,7 @@ import 'package:on_audio_room/on_audio_room.dart';
                   );
                   print(alreadyAdded);
                   if (alreadyAdded == false) {
-                    Get.snackbar(songs![index2].title,
-                        "Added to Favorite",
+                    Get.snackbar(songs![index2].title, "Added to Favorite",
                         backgroundColor: Colors.white);
                   } else {
                     Get.snackbar(
@@ -149,7 +142,7 @@ import 'package:on_audio_room/on_audio_room.dart';
                   }
                   onAudioRoom.addTo(
                     RoomType.FAVORITES,
-                  songs![index2].getMap.toFavoritesEntity(),
+                    songs![index2].getMap.toFavoritesEntity(),
                     ignoreDuplicate: false,
                   );
                 },
@@ -159,14 +152,22 @@ import 'package:on_audio_room/on_audio_room.dart';
                 iconSize: 30,
                 color: Colors.white,
               ),
-              IconButton(onPressed: (){
-                controller.suffleChanging();
-                player.toggleShuffle();
-              }, icon: controller.suffle?Icon(Icons.shuffle_on_rounded,):Icon(Icons.shuffle_rounded),iconSize: 30,color: Colors.white,),
               IconButton(
                 onPressed: () {
-                  Get.to(PlaylistAdding(
-                      songDetails: songs!, index: index2));
+                  controller.suffleChanging();
+                  player.toggleShuffle();
+                },
+                icon: controller.suffle
+                    ? Icon(
+                        Icons.shuffle_on_rounded,
+                      )
+                    : Icon(Icons.shuffle_rounded),
+                iconSize: 30,
+                color: Colors.white,
+              ),
+              IconButton(
+                onPressed: () {
+                  Get.to(PlaylistAdding(songDetails: songs!, index1: index2));
                 },
                 icon: Icon(Icons.playlist_add),
                 iconSize: 30,
@@ -178,61 +179,59 @@ import 'package:on_audio_room/on_audio_room.dart';
   }
 
   controll() {
-    return GetBuilder<PlayingScreenController>(
-      builder: (controller) {
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    player.previous();
-                    controller.changeState();
-                  },
-                  icon: Icon(Icons.skip_previous_rounded),
-                  iconSize: 60,
-                  color: Colors.white),
-              IconButton(
+    return GetBuilder<PlayingScreenController>(builder: (controller) {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
                 onPressed: () {
-                  if (play == true) {
-                    player.pause();
-                    controller.pausing();
-                  } else {
-                    player.play();
-                    controller.playing();
-                  }
-                },
-                icon: Icon(
-                  play == false
-                      ? Icons.play_circle_filled_rounded
-                      : Icons.pause_circle_filled_rounded,
-                  size: 60,
-                  color: Colors.white,
-                ),
-                iconSize: 60,
-              ),
-              IconButton(
-                onPressed: () {
-                  player.next(keepLoopMode: true);
+                  player.previous();
                   controller.changeState();
                 },
-                icon: Icon(Icons.skip_next_rounded),
+                icon: Icon(Icons.skip_previous_rounded),
                 iconSize: 60,
+                color: Colors.white),
+            IconButton(
+              onPressed: () {
+                if (play == false) {
+                  player.pause();
+                  controller.playing();
+                } else {
+                  player.play();
+                  controller.pausing();
+                }
+              },
+              icon: Icon(
+                play == true
+                    ? Icons.play_circle_filled_rounded
+                    : Icons.pause_circle_filled_rounded,
+                size: 60,
                 color: Colors.white,
               ),
-            ],
-          ),
-        );
-      },
-    );
+              iconSize: 60,
+            ),
+            IconButton(
+              onPressed: () {
+                player.next(keepLoopMode: true);
+                controller.changeState();
+              },
+              icon: Icon(Icons.skip_next_rounded),
+              iconSize: 60,
+              color: Colors.white,
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   photo(size) {
     return player.builderRealtimePlayingInfos(
         builder: (BuildContext context, RealtimePlayingInfos realTimeInfo) {
       return Container(
-        height:size.height * 0.45,
+        height: size.height * 0.45,
         width: size.width * 0.9,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(1000),
@@ -261,12 +260,22 @@ import 'package:on_audio_room/on_audio_room.dart';
             Get.back();
           },
           icon: Icon(Icons.arrow_back_ios_new)),
-          actions: [
-            IconButton(onPressed: (){
+      actions: [
+        IconButton(
+            onPressed: () {
               controller.repeatChanging();
-                player.toggleLoop();
-            }, icon: controller.repeat?Icon(Icons.repeat_on_rounded,size: 30,):Icon(Icons.repeat_rounded,size: 30,))
-          ],
+              player.toggleLoop();
+            },
+            icon: controller.repeat
+                ? Icon(
+                    Icons.repeat_on_rounded,
+                    size: 30,
+                  )
+                : Icon(
+                    Icons.repeat_rounded,
+                    size: 30,
+                  ))
+      ],
     );
   }
 
@@ -274,9 +283,7 @@ import 'package:on_audio_room/on_audio_room.dart';
     return player.builderRealtimePlayingInfos(builder: (context, realtime) {
       return Column(
         children: [
-          SizedBox(
-            height: 50
-             ),
+          SizedBox(height: 50),
           Padding(
             padding: const EdgeInsets.only(right: 20, left: 25),
             child: Center(
@@ -297,7 +304,6 @@ import 'package:on_audio_room/on_audio_room.dart';
       );
     });
   }
-
 
   slider() {
     return player.builderRealtimePlayingInfos(
@@ -353,4 +359,4 @@ import 'package:on_audio_room/on_audio_room.dart';
     Duration pos = Duration(seconds: sec.toInt());
     player.seek(pos);
   }
- }
+}

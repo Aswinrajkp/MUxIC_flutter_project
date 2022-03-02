@@ -6,8 +6,6 @@ import 'package:on_audio_room/on_audio_room.dart';
 
 PlaylistController controller = Get.put(PlaylistController());
 
-
-
 class Playlist extends StatelessWidget {
   Playlist({Key? key}) : super(key: key);
 
@@ -107,44 +105,46 @@ class Playlist extends StatelessWidget {
       ),
     );
   }
+
   addingButton() {
     return IconButton(
         onPressed: () {
           Get.defaultDialog(
-                          title: 'Enter Plalist Name',
-                          content: Column(
-                            children: [
-                              Form(
-                                key: formKey,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: TextFormField(
-                                        controller: namecontroller,
-                                        validator: (value) {
-                                          if (value!.isEmpty || value == null) {
-                                            return '*required';
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+              title: 'Enter Plalist Name',
+              content: Column(
+                children: [
+                  Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            controller: namecontroller,
+                            validator: (value) {
+                              if (value!.isEmpty || value == null) {
+                                return '*required';
+                              }
+                            },
                           ),
-                          confirm: TextButton(
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  controller.checking(namecontroller, onAudioRoom);
-                                }
-                              },
-                              child: Text(
-                                'Add Playlist',
-                                style: TextStyle(color: Colors.green),
-                              )));
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              confirm: TextButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      controller.checking(namecontroller, onAudioRoom);
+                      namecontroller.clear();
+                    }
+                  },
+                  child: Text(
+                    'Add Playlist',
+                    style: TextStyle(color: Colors.green),
+                  )));
         },
         icon: Icon(
           Icons.playlist_add,
