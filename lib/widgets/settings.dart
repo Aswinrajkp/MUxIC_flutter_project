@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:music_project/Controller/switch_controll.dart';
-import 'package:music_project/widgets/home.dart';
-import 'package:music_project/widgets/miniPlayer.dart';
 
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);
@@ -32,7 +29,6 @@ class Settings extends StatelessWidget {
                 ),
                 onChanged: (value) {
                   controller.setsSwitch(value);
-                  controller.switchState();
                 }),
             ListTile(
               title: Text(
@@ -51,7 +47,7 @@ class Settings extends StatelessWidget {
               onTap: () {
                 Get.to(LicensePage(
                   applicationName: 'MUxIC',
-                  applicationVersion: '1.0.2',
+                  applicationVersion: '1.0.3',
                 ));
               },
               title: Text(
@@ -65,7 +61,7 @@ class Settings extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               trailing: Text(
-                '1.0.0',
+                '1.0.2',
                 style: TextStyle(color: Colors.white),
               ),
             )

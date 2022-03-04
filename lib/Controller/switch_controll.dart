@@ -15,7 +15,14 @@ class SwitchController extends GetxController {
     if (data.read('switch') != null) {
       notify = data.read('switch');
     }
-    print('that is worked $notify');
+
     update();
+  }
+
+  @override
+  void onInit() {
+    switchState();
+    // TODO: implement onInit
+    super.onInit();
   }
 }

@@ -35,15 +35,9 @@ class FavoriteController extends GetxController {
     update();
   }
 
-  changeState() {
-    play = false;
-    update();
-  }
-
   @override
   void onInit() {
     gettingSongs();
-    // TODO: implement onInit
     super.onInit();
   }
 }

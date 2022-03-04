@@ -25,12 +25,3 @@ class SplashScreen extends StatelessWidget {
     });
   }
 }
-  // @override
-  // void initState() {
-  //   super.initState();
-    // Timer(const Duration(seconds: 2), () {
-    //   Get.offNamed("/Home");
-    // });
-  // }
-
- 

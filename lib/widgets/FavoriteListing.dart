@@ -2,7 +2,6 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_project/Controller/playlist_Controller.dart';
-import 'package:music_project/widgets/home.dart';
 import 'package:music_project/widgets/playing_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
@@ -87,7 +86,6 @@ class Favorite extends StatelessWidget {
                           },
                         ),
                         onTap: () {
-                          controller.changeState();
                           Get.to(Music(
                             count: index,
                             audio: fav,

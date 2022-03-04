@@ -103,7 +103,6 @@ class PlaylistList extends StatelessWidget {
                             style: TextStyle(color: Colors.white),
                           )),
                       onTap: () {
-                        controller.changeState();
                         for (var item in playlist) {
                           playableList.add(Audio.file(item.lastData,
                               metas: Metas(

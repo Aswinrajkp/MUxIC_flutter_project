@@ -76,29 +76,30 @@ class BottomPlaying extends StatelessWidget {
         padding: const EdgeInsets.only(right: 20),
         child: Wrap(
           children: [
-            IconButton(
-              onPressed: () {
-                if (play == false) {
-                  player.pause();
-                  controller.playing();
-                } else {
-                  player.play();
-                  controller.pausing();
-                }
-              },
-              icon: Icon(
-                play == true
-                    ? Icons.play_circle_filled_rounded
-                    : Icons.pause_circle_filled_rounded,
-                size: 35,
-                color: Colors.white,
+            player.builderRealtimePlayingInfos(
+              builder: (context, realtime) => IconButton(
+                onPressed: () {
+                  if (realtime.isPlaying == true) {
+                    player.pause();
+                    controller.playing();
+                  } else {
+                    player.play();
+                    controller.pausing();
+                  }
+                },
+                icon: Icon(
+                  realtime.isPlaying
+                      ? Icons.pause_circle_filled_rounded
+                      : Icons.play_circle_filled_rounded,
+                  size: 35,
+                  color: Colors.white,
+                ),
+                iconSize: 35,
               ),
-              iconSize: 35,
             ),
             IconButton(
                 onPressed: () {
                   player.next();
-                  controller.changeState();
                 },
                 icon: Icon(
                   Icons.skip_next_rounded,

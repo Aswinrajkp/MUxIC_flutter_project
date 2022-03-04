@@ -6,7 +6,6 @@ bool play = true;
 class PlayingScreenController extends GetxController {
   bool suffle = false;
   bool repeat = false;
-
   AssetsAudioPlayer player = AssetsAudioPlayer();
 
   pausing() {
@@ -16,15 +15,6 @@ class PlayingScreenController extends GetxController {
 
   playing() {
     play = true;
-    update();
-  }
-
-  changeState() {
-    play = false;
-    update();
-  }
-
-  updation() {
     update();
   }
 

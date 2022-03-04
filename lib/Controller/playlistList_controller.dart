@@ -24,9 +24,4 @@ class PlaylistListController extends GetxController {
     }
     update();
   }
-
-  changeState() {
-    play = false;
-    update();
-  }
 }

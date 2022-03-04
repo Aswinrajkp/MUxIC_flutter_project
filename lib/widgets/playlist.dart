@@ -33,9 +33,9 @@ class Playlist extends StatelessWidget {
                   future: (onAudioRoom.queryPlaylists()),
                   builder: (context, item) {
                     if (item.data == null)
-                      return const CircularProgressIndicator();
+                      return Center(child: const CircularProgressIndicator());
                     if (item.data!.isEmpty)
-                      return const Center(
+                      return Center(
                           child: Text(
                         "No Playlist found!",
                         style: TextStyle(color: Colors.white),

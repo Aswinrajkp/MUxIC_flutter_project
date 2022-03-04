@@ -53,11 +53,9 @@ class Music extends StatelessWidget {
                 }
               },
               customNextAction: (player) {
-                controller.changeState();
                 player.next();
               },
               customPrevAction: (player) {
-                controller.changeState();
                 player.previous();
               }));
     }, builder: (controller) {
@@ -82,30 +80,28 @@ class Music extends StatelessWidget {
                   child: Container(
                       child: Column(
                     children: [
-                      photo(size),
+                      photo(size, controller),
                       title(size),
                     ],
                   )),
                 ),
-                GetBuilder<PlayingScreenController>(builder: (controller) {
-                  return Container(
-                    decoration: const BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50),
-                        )),
-                    height: MediaQuery.of(context).size.height * .35,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        slider(),
-                        controll(),
-                        favandlistAdding(),
-                      ],
-                    ),
-                  );
-                })
+                Container(
+                  decoration: const BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50),
+                      )),
+                  height: MediaQuery.of(context).size.height * .35,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      slider(),
+                      controll(context),
+                      favandlistAdding(),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -154,15 +150,20 @@ class Music extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  controller.suffleChanging();
-                  player.toggleShuffle();
+                  controller.repeatChanging();
+                  player.toggleLoop();
                 },
-                icon: controller.suffle
+                icon: controller.repeat
                     ? Icon(
-                        Icons.shuffle_on_rounded,
+                        Icons.repeat_rounded,
+                        size: 30,
+                        color: Colors.redAccent.shade700,
                       )
-                    : Icon(Icons.shuffle_rounded),
-                iconSize: 30,
+                    : Icon(
+                        Icons.repeat_rounded,
+                        size: 30,
+                        color: Colors.white,
+                      ),
                 color: Colors.white,
               ),
               IconButton(
@@ -178,24 +179,23 @@ class Music extends StatelessWidget {
     });
   }
 
-  controll() {
-    return GetBuilder<PlayingScreenController>(builder: (controller) {
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-                onPressed: () {
-                  player.previous();
-                  controller.changeState();
-                },
-                icon: Icon(Icons.skip_previous_rounded),
-                iconSize: 60,
-                color: Colors.white),
-            IconButton(
+  controll(context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
               onPressed: () {
-                if (play == false) {
+                player.previous();
+              },
+              icon: Icon(Icons.skip_previous_rounded),
+              iconSize: 60,
+              color: Colors.white),
+          player.builderRealtimePlayingInfos(
+            builder: (context, realtime) => IconButton(
+              onPressed: () {
+                if (realtime.isPlaying == true) {
                   player.pause();
                   controller.playing();
                 } else {
@@ -204,30 +204,29 @@ class Music extends StatelessWidget {
                 }
               },
               icon: Icon(
-                play == true
-                    ? Icons.play_circle_filled_rounded
-                    : Icons.pause_circle_filled_rounded,
+                realtime.isPlaying
+                    ? Icons.pause_circle_filled_rounded
+                    : Icons.play_circle_filled_rounded,
                 size: 60,
                 color: Colors.white,
               ),
               iconSize: 60,
             ),
-            IconButton(
-              onPressed: () {
-                player.next(keepLoopMode: true);
-                controller.changeState();
-              },
-              icon: Icon(Icons.skip_next_rounded),
-              iconSize: 60,
-              color: Colors.white,
-            ),
-          ],
-        ),
-      );
-    });
+          ),
+          IconButton(
+            onPressed: () {
+              player.next(keepLoopMode: true);
+            },
+            icon: Icon(Icons.skip_next_rounded),
+            iconSize: 60,
+            color: Colors.white,
+          ),
+        ],
+      ),
+    );
   }
 
-  photo(size) {
+  photo(size, controller) {
     return player.builderRealtimePlayingInfos(
         builder: (BuildContext context, RealtimePlayingInfos realTimeInfo) {
       return Container(
@@ -262,19 +261,19 @@ class Music extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios_new)),
       actions: [
         IconButton(
-            onPressed: () {
-              controller.repeatChanging();
-              player.toggleLoop();
-            },
-            icon: controller.repeat
-                ? Icon(
-                    Icons.repeat_on_rounded,
-                    size: 30,
-                  )
-                : Icon(
-                    Icons.repeat_rounded,
-                    size: 30,
-                  ))
+          onPressed: () {
+            controller.suffleChanging();
+            player.toggleShuffle();
+          },
+          icon: controller.suffle
+              ? Icon(
+                  Icons.shuffle_rounded,
+                  color: Colors.black,
+                )
+              : Icon(Icons.shuffle_rounded),
+          iconSize: 30,
+          color: Colors.white,
+        ),
       ],
     );
   }
