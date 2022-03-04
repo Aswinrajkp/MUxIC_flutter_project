@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_project/Controller/homeScreen_Controller.dart';
 import 'package:music_project/Controller/switch_controll.dart';
-import 'package:music_project/widgets/playing_screen.dart';
-import 'package:music_project/widgets/playlist_Adding.dart';
+import 'package:music_project/views/playing_screen.dart';
+import 'package:music_project/views/playlist_Adding.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 

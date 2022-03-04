@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_project/Controller/playlist_Controller.dart';
-import 'package:music_project/widgets/playlistList.dart';
+import 'package:music_project/views/playlistList.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 
 PlaylistController controller = Get.put(PlaylistController());

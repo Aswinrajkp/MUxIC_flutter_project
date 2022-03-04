@@ -2,8 +2,8 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_project/Controller/PlayingScreen_controller.dart';
-import 'package:music_project/widgets/home.dart';
-import 'package:music_project/widgets/playing_screen.dart';
+import 'package:music_project/views/home.dart';
+import 'package:music_project/views/playing_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class BottomPlaying extends StatelessWidget {

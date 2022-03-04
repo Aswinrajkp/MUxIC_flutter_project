@@ -2,12 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:music_project/Controller/bottomNavigation_Controller.dart';
-import 'package:music_project/widgets/FavoriteListing.dart';
-import 'package:music_project/widgets/home.dart';
-import 'package:music_project/widgets/miniPlayer.dart';
-import 'package:music_project/widgets/playlist.dart';
-import 'package:music_project/widgets/settings.dart';
-import 'package:music_project/widgets/splash_Screen.dart';
+import 'package:music_project/views/FavoriteListing.dart';
+import 'package:music_project/views/home.dart';
+import 'package:music_project/views/miniPlayer.dart';
+import 'package:music_project/views/playlist.dart';
+import 'package:music_project/views/settings.dart';
+import 'package:music_project/views/splash_Screen.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 import 'package:get/get.dart';
 

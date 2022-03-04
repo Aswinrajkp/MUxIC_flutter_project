@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:music_project/Controller/PlayingScreen_controller.dart';
 import 'package:music_project/Controller/switch_controll.dart';
-import 'package:music_project/widgets/playlist_Adding.dart';
+import 'package:music_project/views/playlist_Adding.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:on_audio_room/on_audio_room.dart';
 
